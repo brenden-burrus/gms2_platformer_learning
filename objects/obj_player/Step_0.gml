@@ -4,46 +4,46 @@ key_right = keyboard_check(vk_right) or keyboard_check(ord("D"));
 key_jump = keyboard_check(vk_space) or keyboard_check(ord("W"));
 
 // Calculate Movement
-var move  = key_right - key_left;
+var move = key_right - key_left;
 
 hsp = move * walksp;
 
 vsp = vsp + grv;
 
 //Horizontal Collision
-if (tile_meeting(x+hsp, y, "TileCollision"))
+if (tile_meeting_precise(x+hsp, y, "TileCollision"))
 {
-	while(!tile_meeting(x+sign(hsp), y, "TileCollision"))
+	while(!tile_meeting_precise(x+sign(hsp), y, "TileCollision"))
 	{
 		x = x + sign(hsp);	
 	}
 	hsp = 0;
 }
 
-x = x + hsp
+x = x + hsp;
 
 //Vertical Collision
-if (tile_meeting(x, y+vsp, "TileCollision"))
+if (tile_meeting_precise(x, y+vsp, "TileCollision"))
 {
-	while(!tile_meeting(x, y+sign(vsp), "TileCollision"))
+	while(!tile_meeting_precise(x, y+sign(vsp), "TileCollision"))
 	{
 		y = y + sign(vsp);	
 	}
 	vsp = 0;
 }
 
-y = y + vsp
+y = y + vsp;
 
 
 //Jumping
-if (tile_meeting(x, y+1, "TileCollision")) and (key_jump)
+if (tile_meeting_precise(x, y+1, "TileCollision")) and (key_jump)
 {
-	vsp = -12
+	vsp = jump_ht;
 }
 
 
 //Animation
-if (!tile_meeting(x, y+1, "TileCollision"))
+if (!tile_meeting_precise(x, y+1, "TileCollision"))
 {
 	sprite_index = spr_playerJump;
 	image_speed = 0;
